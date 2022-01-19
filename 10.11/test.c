@@ -1,76 +1,25 @@
 #include <stdio.h>
-
+#include <math.h>
+float S(int xa, int ya, int xb, int yb, int xc, int yc)
+{
+	return 0.5 * abs((xb - xa) * (yc - ya) - (xc - xa) * (yb - ya));
+}
 int main()
 {
-	long xa, ya, xb, yb, xc, yc;
-	long long a, b, A, B;
-	double xh, yh;
-	scanf("%ld %ld", &xa, &ya);
-	scanf("%ld %ld", &xb, &yb);
-	scanf("%ld %ld", &xc, &yc);
-
-	a = ya - yb;
-	b = xb - xa;
-	A = a * yc - b * xc;
-	B = a * xa + b * ya;
-	xh = (B - ((b * A) * 1.0 / a)) * 1.0 / (a + ((b * b) * 1.0 / a));
-	yh = ((A + b * xh) * 1.0) / a;
-
-	if (ya == yb)
-	{
-		if (xa > xb)
-		{
-			if (yb == yc && xc < xa)
-				printf("TOWARDS");
-			else if (yb > yc && xc != xb && xc != xa)
-				printf("LEFT");
-			else if (yb < yc && xc != xb && xc != xa)
-				printf("RIGHT");
-		}
-		else if (xa < xb)
-		{
-			if (yb == yc && xc > xa)
-				printf("TOWARDS");
-			else if (yb < yc && xc != xb && xc != xa)
-				printf("LEFT");
-			else if (yb > yc && xc != xb && xc != xa)
-				printf("RIGHT");
-		}
-	}
-	if (ya != yb)
-	{
-		if (xa < xb && yc < yh)
-			printf("RIGHT");
-		else if (xa < xb && yc > yh)
-			printf("LEFT");
-		else if (xa > xb && yc > yh)
-			printf("RIGHT");
-		else if (xa > xb && yc < yh)
-			printf("LEFT");
-		else if (a * xc + b * yc - B == 0)
-		{
-			if (xa > xb && xc < xa || xa < xb && xc > xa)
-				printf("TOWARDS");
-		}
-	}
-	if (xa == xb && ya < yb)
-	{
-		if (xc == xb && yc > ya)
-			printf("TOWARDS");
-		else if (xc > xb && yc != yb && yc != ya)
-			printf("RIGHT");
-		else if (xc < xb && yc != yb && yc != ya)
-			printf("LEFT");
-	}
-	else if (xa == xb && ya > yb)
-	{
-		if (xc == xb && yc < ya)
-			printf("TOWARDS");
-		else if (xc < xb && yc != yb && yc != ya)
-			printf("RIGHT");
-		else if (xc > xb && yc != yb && yc != ya)
-			printf("LEFT");
-	}
-
+	int xa, ya, xb, yb, xc, yc, xm, ym;
+	scanf("%d %d", &xa, &ya);
+	scanf("%d %d", &xb, &yb);
+	scanf("%d %d", &xc, &yc);
+	scanf("%d %d", &xm, &ym);
+	float abc = S(xa, ya, xb, yb, xc, yc);
+	float mab = S(xm, ym, xa, ya, xb, yb);
+	float mbc = S(xm, ym, xb, yb, xc, yc);
+	float mac = S(xm, ym, xa, ya, xc, yc);
+	if (mab == 0 || mbc == 0 || mac == 0)
+		printf("M nam tren canh tam giac ABC");
+	else if (abc == mab + mac + mbc)
+		printf("M nam trong tam giac ABC");
+	else if (abc < mab + mac + mbc)
+		printf("M nam ngoai tam giac ABC");
 	return 0;
 }

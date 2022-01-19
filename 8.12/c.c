@@ -1,20 +1,14 @@
 #include <stdio.h>
-long long giaithua(int n)
+long long c(int k, int n)
 {
-    double s = 1;
-    for (int j = 2; j <= i; j++)
-        s = s * j;
-    return s;
+    if (k == n || k == 0)
+        return 1;
+    return c(k, n - 1) * n / (n - k);
 }
 int main()
 {
     int k, n;
     scanf("%d %d", &k, &n);
-    if (k > n - k)
-        k = n - k;
-    double x = 1;
-    for (int i = n; i >= n - k; i--)
-    {
-    }
+    printf("%lld", c(k, n));
     return 0;
 }
